@@ -1,7 +1,7 @@
 {
   "name": "test-restful-api",
   "version": "0.0.1",
-  "description": "This is RESTful API test project",
+  "description": "RESTful API on Node.js with Express",
   "author": "Denis",
   "private": true,
   "scripts": {
