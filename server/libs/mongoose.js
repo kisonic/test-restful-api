@@ -1,24 +1,27 @@
-var mongoose = require('mongoose');
-var log      = require('./log')(module);
-var config   = require('../config');
+import mongoose    from 'mongoose';
+import Logger      from './log';
+import config      from '../config';
+
+const log = Logger(module);
 
 mongoose.connect(config.get('mongoose:uri'));
-var db = mongoose.connection;
 
-db.on('error', function (err) {
-	log.error('connection error:', err.message);
-});
+const db = mongoose.connection;
 
-db.once('open', function callback () {
-	log.info("Connected to DB!");
-});
+db.on('error', err =>
+	log.error('connection error:', err.message)
+);
 
-var Schema = mongoose.Schema;
+db.once('open', () =>
+	log.info("Connected to DB!")
+);
 
-var ToDo = new Schema({
+const Schema = mongoose.Schema;
+
+const ToDo = new Schema({
 	title: { type: String, required: true }
 });
 
-var ToDoModel = mongoose.model('ToDo', ToDo);
+const ToDoModel = mongoose.model('ToDo', ToDo);
 
-module.exports.ToDoModel = ToDoModel;
+export default ToDoModel;
